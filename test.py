@@ -41,3 +41,16 @@ list1.reverse()
 print(list1)
 list1.sort()
 print(list1)
+
+list3=[1,3,4,5,6,2,23,21,11]
+
+for i in list3:
+	if i>5:
+		print(i)
+
+print([x for x in list3 if x>3])
+
+#元组tuple()，元组是不可变的，里面的对象是可以改变的
+tuple1=(1,2,4,{"name":"测试"})
+tuple1[3]['name']="我是测试"
+print(tuple1)
