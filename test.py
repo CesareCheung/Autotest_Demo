@@ -41,3 +41,16 @@ list1.reverse()
 print(list1)
 list1.sort()
 print(list1)
+
+# 字典
+
+dict1 = {"name": "zhangsan", "age": 18}
+dict2 = {"adr": "shenzhen"}
+# items()--->整个字典循环，输出对应的所有key和value
+for key, value in dict1.items():
+    print(key, value)
+print(dir(dict))
+
+# update--->更新
+dict1.update(dict2)
+print(dict1)
