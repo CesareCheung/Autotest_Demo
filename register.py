@@ -36,9 +36,26 @@ def login():
         info = info.split("|")  # 字符串切割成列表
         print(info)
         if username == info[0] and password == info[1]:
-            print("登录成功")
+            return True
         else:
-            print("登录失败")
+            return False
 
 
-login()
+print(login())
+
+
+def getNick(func):
+    """
+    获取昵称
+    :return:
+    """
+    with open(".\login.md", 'r') as fp:
+        info = fp.read()
+        info = info.split("|")
+        if func:
+            print(f"{info[0]}，欢迎您")
+        else:
+            print("请登录系统")
+
+
+getNick(login())
