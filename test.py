@@ -54,3 +54,10 @@ print(dir(dict))
 # update--->更新
 dict1.update(dict2)
 print(dict1)
+
+# 字典取值
+data= {"pay_apply_id": 76, "pay_apply_no": "BM202004297680186", "order_no": "B20200429107147381", "business_id": 53}
+
+for key,value in data.items():
+    if key =="pay_apply_id":
+        print(key, ":", value)
