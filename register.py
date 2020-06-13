@@ -9,7 +9,7 @@
 """
 
 
-def register(file):
+def register():
     """
     实现账号注册功能
     :return:
@@ -17,11 +17,11 @@ def register(file):
     username = input("请输入账号：\n")
     password = input("请输入账号密码：\n")
     temp = username + "|" + password
-    with open(file, 'w+') as fp:
+    with open(".\login.md", 'w+') as fp:
         fp.write(temp)
 
 
-register(".\login.md")
+register()
 
 
 def login():
@@ -59,3 +59,19 @@ def getNick(func):
 
 
 getNick(login())
+
+if __name__ == '__main__':
+
+    while True:
+        t=int(input("1、注册2、登录3、退出"))
+        if t ==1:
+            register()
+        elif t==2:
+            getNick(login())
+        elif t==3:
+            import sys
+            sys.exit(1)
+        else:
+            print("输入错误，请继续")
+            continue
+
