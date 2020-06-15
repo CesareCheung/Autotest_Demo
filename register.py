@@ -9,13 +9,22 @@
 """
 
 
+def inOut():
+    """
+    输入数据
+    :return:
+    """
+    username = input("请输入账号：\n")
+    password = input("请输入账号密码：\n")
+    return username, password
+
+
 def register():
     """
     实现账号注册功能
     :return:
     """
-    username = input("请输入账号：\n")
-    password = input("请输入账号密码：\n")
+    username, password = inOut()
     temp = username + "|" + password
     with open(".\login.md", 'w+') as fp:
         fp.write(temp)
@@ -29,8 +38,7 @@ def login():
     实现登录账号
     :return:
     """
-    username = input("请输入账号：\n")
-    password = input("请输入账号密码：\n")
+    username, password = inOut()
     with open(".\login.md", "r") as fp:
         info = fp.read()
         info = info.split("|")  # 字符串切割成列表
@@ -63,15 +71,15 @@ getNick(login())
 if __name__ == '__main__':
 
     while True:
-        t=int(input("1、注册2、登录3、退出"))
-        if t ==1:
+        t = int(input("1、注册2、登录3、退出"))
+        if t == 1:
             register()
-        elif t==2:
+        elif t == 2:
             getNick(login())
-        elif t==3:
+        elif t == 3:
             import sys
+
             sys.exit(1)
         else:
             print("输入错误，请继续")
             continue
-
