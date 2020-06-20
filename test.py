@@ -42,6 +42,7 @@ print(list1)
 list1.sort()
 print(list1)
 
+
 list3=[1,3,4,5,6,2,23,21,11]
 
 for i in list3:
@@ -54,3 +55,24 @@ print([x for x in list3 if x>3])
 tuple1=(1,2,4,{"name":"测试"})
 tuple1[3]['name']="我是测试"
 print(tuple1)
+
+# 字典
+
+dict1 = {"name": "zhangsan", "age": 18}
+dict2 = {"adr": "shenzhen"}
+# items()--->整个字典循环，输出对应的所有key和value
+for key, value in dict1.items():
+	print(key, value)
+print(dir(dict))
+
+# update--->更新
+dict1.update(dict2)
+print(dict1)
+
+# 字典取值
+data= {"pay_apply_id": 76, "pay_apply_no": "BM202004297680186", "order_no": "B20200429107147381", "business_id": 53}
+
+for key,value in data.items():
+	if key =="pay_apply_id":
+		print(key, ":", value)
+
