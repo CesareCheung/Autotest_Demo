@@ -26,3 +26,9 @@ readlines():每次按行读取整个文件内容，将读取到的内容放到�
 file=open('file.json','r')
 file=file.read()
 print(file)
+
+
+# 文件的上下文处理
+
+with open("file1.json",'w',encoding='utf-8') as f:
+    f.write("测试")
