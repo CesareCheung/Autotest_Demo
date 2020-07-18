@@ -1,0 +1,28 @@
+# 追加
+
+# f = open("file.json", 'a')
+# f.write("test")
+# f.close()
+
+
+# 写文件
+import json
+
+f = open("file.json", "w")
+temp = {
+    "name": "zhangsan",
+    "addr": "shenzhen",
+    "age":"28"
+}
+json.dump(temp, open("file.json", 'w'))
+
+# r--->读文件
+"""
+read():读取文件所有内容
+readline()：默认读取文件第一行
+readlines():每次按行读取整个文件内容，将读取到的内容放到一个列表中，返回list类型
+"""
+
+file=open('file.json','r')
+file=file.read()
+print(file)
