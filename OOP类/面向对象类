@@ -1,0 +1,62 @@
+#! usr/bin/env python
+# coding=utf-8
+# Author="张维序"
+
+"""
+类定义
+类：是由一系列属性和方法组成
+
+"""
+
+
+class F1():
+    pass
+
+
+"""
+对象的创建---->就是类实例化的过程
+三个特性：
+1、对象的句柄--->区分不同的对象
+
+f2 = F1()
+f1=F1()
+print(id(f1),id(f2))
+
+2、属性：
+        公有属性：
+                类属性:共有的属性分离出来
+                实例属性
+                局部变量
+        私有属性
+3、方法 
+"""
+
+
+class Person():
+    gongyou="China"
+    def __init__(self, name, age):
+        # 实例属性
+        self.name = name
+        self.age = age
+
+    def getname(self):
+        return self.name
+
+    def getage(self):
+        return self.age
+
+    def setname(self, name):
+        self.name = name
+
+    def setage(self, age):
+        self.age = age
+
+    def info(self):
+        return f"name:{self.getname()},age:{self.getage()},addr:{self.gongyou}"
+
+per=Person("zhangsan",'29')
+print(per.getname(),per.getage())
+per1=Person("lisi",'30')
+per1.setage('20')
+print(per1.getage())
+print(per1.info())
