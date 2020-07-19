@@ -177,9 +177,7 @@ class Person():
 子类继承父类所有的实例变量和方法
 """
 
-# 类属性的继承
 
-# 实例属性的继承
 
 """实例属性是不需要在类中显示定义的，而是在__init__构造函数中定义的，
 定义时以self作为前缀。在其他方法中也可以随意添加新的实例属性，但不提倡，
@@ -287,10 +285,43 @@ for member in members:
     member.tell()               #调用子类实例方法
 
 
+# 类属性的继承
+
+# 实例属性的继承
+
+# 字类由于业务需求，需要继承父类的实例属性
 class Fruit():
     def __init__(self,name):
         self.name=name
 
 class Apple(Fruit):
-    pass
 
+    def __init__(self,name,brand,color):
+        # 父类.__init__(实例化属性)
+        Fruit.__init__(self,name)
+        self.brand=brand
+        self.color=color
+
+    def info(self):
+        print(f"名字：{self.name},颜色：{self.color},品牌：{self.brand}")
+
+apple=Apple("手机","苹果","金色")
+apple.info()
+
+
+# 字类由于业务需求，不需要继承父类的实例属性
+class Fruit():
+    def __init__(self,name):
+        self.name=name
+
+class Apple(Fruit):
+
+    def __init__(self,brand,color):
+        self.brand=brand
+        self.color=color
+
+    def info(self):
+        print(f"颜色：{self.color},品牌：{self.brand}")
+
+apple=Apple("苹果","金色")
+apple.info()
