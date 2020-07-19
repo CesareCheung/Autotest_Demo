@@ -101,6 +101,7 @@ class Person2():
 对象实例化-->构造函数-->对象调用方法-->代码跳转到具体方法-->执行方法的代码-->最后析构函数
 """
 
+
 class Person4():
     def __init__(self):
         print("我是构造函数")
@@ -111,5 +112,62 @@ class Person4():
     def info(self):
         print("我是调用方法")
 
-per=Person4()
+
+per = Person4()
 per.info()
+
+"""
+特性方法:这个方法不能有形式参数
+"""
+
+
+class Person():
+
+    @property
+    def get_userid(self):
+        pass
+
+
+"""
+静态方法:直接使用类名来调用，它属于类
+对象也可以调用静态方法，但是一般不建议这样做
+调用的地方比较多的时候使用
+
+"""
+
+
+class MySQL():
+    @staticmethod
+    def conn(user):
+        pass
+
+
+# 直接使用类名调用
+MySQL.conn("zhangsan")
+
+# 对象调用
+per = MySQL()
+per.conn("zhangsan")
+
+"""
+类方法：直接使用类来进行调用，属于类
+
+"""
+
+
+class Person():
+    @classmethod
+    def conn(self):
+        pass
+
+
+"""
+属于类：
+        类属性
+        静态方法
+        类方法
+属于对象：
+        实例属性
+        普通方法
+        特性方法
+"""
