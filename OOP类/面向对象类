@@ -24,6 +24,8 @@ print(id(f1),id(f2))
 
 2、属性：
         公有属性：
+                类属性(共有的属性分离出来):它属于类，也属于对象
+                实例属性：它只属于对象
                 类属性:共有的属性分离出来
                 实例属性
                 局部变量
@@ -33,7 +35,8 @@ print(id(f1),id(f2))
 
 
 class Person():
-    gongyou="China"
+    gongyou = "China"
+
     def __init__(self, name, age):
         # 实例属性
         self.name = name
@@ -54,15 +57,334 @@ class Person():
     def info(self):
         return f"name:{self.getname()},age:{self.getage()},addr:{self.gongyou}"
 
-per=Person("zhangsan",'29')
-print(per.getname(),per.getage())
-per1=Person("lisi",'30')
+
+per = Person("zhangsan", '29')
+print(per.getname(), per.getage())
+per1 = Person("lisi", '30')
 per1.setage('20')
 print(per1.getage())
 print(per1.info())
+
 
 
 class Person1():
     def __init__(self,*args,**kwargs):
         self.args=args
         self.kwargs
+
+# 动态参数
+class Person1():
+
+    def __init__(self, **kwargs):
+        self.kwargs = kwargs
+
+    def info(self):
+        print(f"信息：{self.kwargs}")
+
+
+per = Person1(name="zhangsan")
+per2 = Person1(name="zhangsan", age=29, addr="ShenZhen")
+per.info()
+per2.info()
+
+"""
+构造函数：
+1、初始化属性
+2、一个类可以有多个构造函数
+
+首先一个类，不管是否写了构造函数，他都是有构造函数的
+"""
+
+
+class Person2():
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+
+"""
+析构函数:执行顺序先构造函数--调用方法--析构函数
+
+对象实例化-->构造函数-->对象调用方法-->代码跳转到具体方法-->执行方法的代码-->最后析构函数
+"""
+
+
+class Person4():
+    def __init__(self):
+        print("我是构造函数")
+
+    def __del__(self):
+        print("我是析构函数")
+
+    def info(self):
+        print("我是调用方法")
+
+
+per = Person4()
+per.info()
+
+"""
+特性方法:这个方法不能有形式参数
+"""
+
+
+class Person():
+
+    @property
+    def get_userid(self):
+        pass
+
+
+"""
+静态方法:直接使用类名来调用，它属于类
+对象也可以调用静态方法，但是一般不建议这样做
+调用的地方比较多的时候使用
+
+"""
+
+
+class MySQL():
+    @staticmethod
+    def conn(user):
+        pass
+
+
+# 直接使用类名调用
+MySQL.conn("zhangsan")
+
+# 对象调用
+per = MySQL()
+per.conn("zhangsan")
+
+"""
+类方法：直接使用类来进行调用，属于类
+
+"""
+
+
+class Person():
+    @classmethod
+    def conn(self):
+        pass
+
+
+"""
+属于类：
+        类属性
+        静态方法
+        类方法
+属于对象：
+        实例属性
+        普通方法
+        特性方法
+"""
+
+"""
+继承：重用已经存在的数据方法和行为，减少代码的重复编写
+子类继承父类所有的实例变量和方法
+"""
+
+
+
+"""实例属性是不需要在类中显示定义的，而是在__init__构造函数中定义的，
+定义时以self作为前缀。在其他方法中也可以随意添加新的实例属性，但不提倡，
+所有的实例属性最好放在__init__中给出。实例属性属于实例（对象），只能通过对象访问。"""
+
+'''
+1.类属性可以由类对象或实例对象调用，推荐类对象，修改类属性只能通过类对象修改
+2.实例属性定义在构造函数__init__中，只能由实例对象调用
+3.实例方法，只能实例化调用，即通过实例对象调用;
+4.若要通过类对象调用类方法，则须对类方法进行装饰用：@classmethod标识。详见：类方法
+'''
+
+
+class car:
+    def __init__(self, c):  # 构造函数，用于定义实例属性
+        self.color = c  # 定义实例属性
+
+    def lengths(self):  # 定义实例方法
+        self.length = 1.83  # 给实例对象添加属性，不提倡，因为这样使得实例对象不能直接
+        # 调用该属性，eg第16行
+
+
+s = car('red')
+print(s.color)
+# print(car.color)  #错误，实例属性，只能通过实例对象调用，不能被类对象调用
+
+# print(s.length)   #错误，不能直接调用lengths()方法中的属性，必须通过实例方法调用，如下：
+s.lengths()
+print(s.length)
+
+# car.lengths()  #错误，类方法只能实例化后在调用，即只能通过实例对象调用，如下：
+drive = car('bule')  # 实例化，形成具体实例对象，self此时表示drive对象（类似this指针）
+drive.lengths()  # 通过实例对象调用实例方法
+print(drive.length)
+
+'''
+类方法是类对象拥有的方法，需要用修饰器“@classmethod”来标识其为类方法
+第一个参数必须是类对象，一般以cls（类方法参数）作为第一个参数，区别于self（实例方法参数）
+注：
+定义类时：1.若定义方法时，没有用修饰器修饰，则该方法属于“实例方法”，类外只能用实例对象调用。
+        2.若定义方法时，用修饰器修饰，则该方法属于“类方法”，可用类对象调用。
+'''
+
+
+class person:
+    place = 'Changsha'
+
+    @classmethod  # 类方法，用@classmethod来进行装饰
+    def getplace(cls):
+        return cls.place
+
+    def setplace(self, place1):  # 实例方法，没用修饰器装饰
+        self.place = place1
+
+
+p = person()
+print(p.getplace())  # 可以通过实例对象调用类方法
+print(person.getplace())  # 可以通过类对象调用类方法
+
+p.setplace('Haerbin')  # 这语句仅仅改变了实例对象p的实例方法setplace()中的place值，
+# 并未改变修饰器所创建的类方法中的place。eg如下：
+# 即只能改变实例，不会改变类，修饰器修饰的类方法它不会被改变
+# 若要改变类属性，则必须在修饰器中修改
+# 或通过类对象修改类属性（person.place = 'Haerbin'）。
+
+print(p.getplace())  # 输出仍为Changsha
+print(p.place)  # 可以通过实例对象调用实例方法,输出改变为Haerbin
+print(person.place)  # 输出仍为Changsha
+# print(person.setplace())    #不可以通过类对象调用实例方法
+
+
+
+'''
+1.在子类实例化时，创建子类实例对象不会自动调用父类构造函数：例：15，23行，必须在子类中显式调用。
+2.若要在子类中调用父类方法，则需以“父类名.方法”方式调用。例：19，27行，注意要传递self参数
+3.子类继承的仅是父类中所有公有属性和方法，对于私有子类无法继承，因此无法在子类中通过父类名访问。
+'''
+class UniversityMember:    #定义父类
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+        print('init UniversityMember:',self.name)
+    def tell(self):
+        print('name:{};age:{}'.format(self.name,self.age))
+class Student(UniversityMember):            #定义子类Student
+    def __init__(self,name,age,marks):
+        UniversityMember.__init__(self,name,age)
+        self.marks=marks
+        print('init Student:',self.name)
+    def tell(self):
+        UniversityMember.tell(self)
+        print('marks:',self.marks)
+class Teacher(UniversityMember):     #定义子类Teacher
+    def __init__(self,name,age,salary):
+        UniversityMember.__init__(self,name,age) #显式调用父类构造方法
+        self.salary=salary
+        print('init Teacher:',self.name)
+    def tell(self):
+        UniversityMember.tell(self)         #通过父类名调用父类中的方法
+        print('salary:',self.salary)
+s=Student('Brenden',18,92)
+t=Teacher('Jasmine',28,2450)
+members=[s,t]                   #把不同的实例对象放进列表中
+for member in members:
+    member.tell()               #调用子类实例方法
+
+
+# 类属性的继承
+
+# 实例属性的继承
+
+# 字类由于业务需求，需要继承父类的实例属性
+class Fruit():
+    def __init__(self,name):
+        self.name=name
+
+class Apple(Fruit):
+
+    def __init__(self,name,brand,color):
+        # 父类.__init__(实例化属性)
+        Fruit.__init__(self,name)
+        self.brand=brand
+        self.color=color
+
+    def info(self):
+        print(f"名字：{self.name},颜色：{self.color},品牌：{self.brand}")
+
+apple=Apple("手机","苹果","金色")
+apple.info()
+
+
+# 字类由于业务需求，不需要继承父类的实例属性
+class Fruit():
+    def __init__(self,name):
+        self.name=name
+
+class Apple(Fruit):
+
+    def __init__(self,brand,color):
+        self.brand=brand
+        self.color=color
+
+    def info(self):
+        print(f"颜色：{self.color},品牌：{self.brand}")
+
+apple=Apple("苹果","金色")
+apple.info()
+
+
+"""方法的继承
+1、子类为什么重写父类的方法：子类有自己的特性
+当子类重写了父类的方法后，对子类进行实例化后，子类调用的方法（父类，子类都存在），执行的方法是子类的方法，从下到上
+
+单个类继承的原则：
+1、从上到下：子类继承父类，但是子类没有重写父类的方法，那么子类实例化后，调用的方法是直接调用父类当中的方法
+2、从下到上的原则：子类继承了父类，但是子类重写了父类的方法，那么子类实例化后，调用的是子类当中的方法（子类优先考虑自己的方法）
+"""
+
+class Fruit():
+
+    def eat(self):
+        print("能吃的水果")
+
+class Apple(Fruit):
+
+    def __init__(self,color):
+        self.color=color
+    def colors(self):
+        print(f"颜色是{self.color}")
+    def eat(self):
+        print(f"颜色{self.color}了，就可以吃")
+
+class UsaApple(Apple):
+    def eat(self):
+        print("我是USA的苹果")
+
+apple=Apple("红")
+apple.eat()
+apple.colors()
+apple=UsaApple("颜色")
+apple.eat()
+
+
+class Person():
+    def __init__(self,name):
+        self.name=name
+    def info(self):
+        print(self.name)
+
+class Son(Person):
+    # 子类有自己的特性的时候需要有构成方法，如果没有自己特性的时候可以不需要有构造方法
+    def __init__(self,name,age,addr):
+        Person.__init__(self,name)
+        self.name=name
+        self.age=age
+        self.addr=addr
+    def info(self):
+        print(f"名字:{self.name},年龄：{self.age},地址：{self.addr}")
+
+
+s=Son("测试",'12','深圳')
+s.info()
