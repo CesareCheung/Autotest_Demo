@@ -60,3 +60,9 @@ per1=Person("lisi",'30')
 per1.setage('20')
 print(per1.getage())
 print(per1.info())
+
+
+class Person1():
+    def __init__(self,*args,**kwargs):
+        self.args=args
+        self.kwargs
