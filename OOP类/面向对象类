@@ -66,11 +66,11 @@ print(per1.getage())
 print(per1.info())
 
 
-
 class Person1():
-    def __init__(self,*args,**kwargs):
-        self.args=args
+    def __init__(self, *args, **kwargs):
+        self.args = args
         self.kwargs
+
 
 # 动态参数
 class Person1():
@@ -185,8 +185,6 @@ class Person():
 子类继承父类所有的实例变量和方法
 """
 
-
-
 """实例属性是不需要在类中显示定义的，而是在__init__构造函数中定义的，
 定义时以self作为前缀。在其他方法中也可以随意添加新的实例属性，但不提倡，
 所有的实例属性最好放在__init__中给出。实例属性属于实例（对象），只能通过对象访问。"""
@@ -205,7 +203,9 @@ class car:
 
     def lengths(self):  # 定义实例方法
         self.length = 1.83  # 给实例对象添加属性，不提倡，因为这样使得实例对象不能直接
-        # 调用该属性，eg第16行
+
+
+# 调用该属性，eg第16行
 
 
 s = car('red')
@@ -257,40 +257,50 @@ print(person.place)  # 输出仍为Changsha
 # print(person.setplace())    #不可以通过类对象调用实例方法
 
 
-
 '''
 1.在子类实例化时，创建子类实例对象不会自动调用父类构造函数：例：15，23行，必须在子类中显式调用。
 2.若要在子类中调用父类方法，则需以“父类名.方法”方式调用。例：19，27行，注意要传递self参数
 3.子类继承的仅是父类中所有公有属性和方法，对于私有子类无法继承，因此无法在子类中通过父类名访问。
 '''
-class UniversityMember:    #定义父类
-    def __init__(self,name,age):
-        self.name=name
-        self.age=age
-        print('init UniversityMember:',self.name)
+
+
+class UniversityMember:  # 定义父类
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        print('init UniversityMember:', self.name)
+
     def tell(self):
-        print('name:{};age:{}'.format(self.name,self.age))
-class Student(UniversityMember):            #定义子类Student
-    def __init__(self,name,age,marks):
-        UniversityMember.__init__(self,name,age)
-        self.marks=marks
-        print('init Student:',self.name)
+        print('name:{};age:{}'.format(self.name, self.age))
+
+
+class Student(UniversityMember):  # 定义子类Student
+    def __init__(self, name, age, marks):
+        UniversityMember.__init__(self, name, age)
+        self.marks = marks
+        print('init Student:', self.name)
+
     def tell(self):
         UniversityMember.tell(self)
-        print('marks:',self.marks)
-class Teacher(UniversityMember):     #定义子类Teacher
-    def __init__(self,name,age,salary):
-        UniversityMember.__init__(self,name,age) #显式调用父类构造方法
-        self.salary=salary
-        print('init Teacher:',self.name)
+        print('marks:', self.marks)
+
+
+class Teacher(UniversityMember):  # 定义子类Teacher
+    def __init__(self, name, age, salary):
+        UniversityMember.__init__(self, name, age)  # 显式调用父类构造方法
+        self.salary = salary
+        print('init Teacher:', self.name)
+
     def tell(self):
-        UniversityMember.tell(self)         #通过父类名调用父类中的方法
-        print('salary:',self.salary)
-s=Student('Brenden',18,92)
-t=Teacher('Jasmine',28,2450)
-members=[s,t]                   #把不同的实例对象放进列表中
+        UniversityMember.tell(self)  # 通过父类名调用父类中的方法
+        print('salary:', self.salary)
+
+
+s = Student('Brenden', 18, 92)
+t = Teacher('Jasmine', 28, 2450)
+members = [s, t]  # 把不同的实例对象放进列表中
 for member in members:
-    member.tell()               #调用子类实例方法
+    member.tell()  # 调用子类实例方法
 
 
 # 类属性的继承
@@ -299,41 +309,44 @@ for member in members:
 
 # 字类由于业务需求，需要继承父类的实例属性
 class Fruit():
-    def __init__(self,name):
-        self.name=name
+    def __init__(self, name):
+        self.name = name
+
 
 class Apple(Fruit):
 
-    def __init__(self,name,brand,color):
+    def __init__(self, name, brand, color):
         # 父类.__init__(实例化属性)
-        Fruit.__init__(self,name)
-        self.brand=brand
-        self.color=color
+        Fruit.__init__(self, name)
+        self.brand = brand
+        self.color = color
 
     def info(self):
         print(f"名字：{self.name},颜色：{self.color},品牌：{self.brand}")
 
-apple=Apple("手机","苹果","金色")
+
+apple = Apple("手机", "苹果", "金色")
 apple.info()
 
 
 # 字类由于业务需求，不需要继承父类的实例属性
 class Fruit():
-    def __init__(self,name):
-        self.name=name
+    def __init__(self, name):
+        self.name = name
+
 
 class Apple(Fruit):
 
-    def __init__(self,brand,color):
-        self.brand=brand
-        self.color=color
+    def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
 
     def info(self):
         print(f"颜色：{self.color},品牌：{self.brand}")
 
-apple=Apple("苹果","金色")
-apple.info()
 
+apple = Apple("苹果", "金色")
+apple.info()
 
 """方法的继承
 1、子类为什么重写父类的方法：子类有自己的特性
@@ -344,47 +357,177 @@ apple.info()
 2、从下到上的原则：子类继承了父类，但是子类重写了父类的方法，那么子类实例化后，调用的是子类当中的方法（子类优先考虑自己的方法）
 """
 
+
 class Fruit():
 
     def eat(self):
         print("能吃的水果")
 
+
 class Apple(Fruit):
 
-    def __init__(self,color):
-        self.color=color
+    def __init__(self, color):
+        self.color = color
+
     def colors(self):
         print(f"颜色是{self.color}")
+
     def eat(self):
         print(f"颜色{self.color}了，就可以吃")
+
 
 class UsaApple(Apple):
     def eat(self):
         print("我是USA的苹果")
 
-apple=Apple("红")
+
+apple = Apple("红")
 apple.eat()
 apple.colors()
-apple=UsaApple("颜色")
+apple = UsaApple("颜色")
 apple.eat()
 
 
 class Person():
-    def __init__(self,name):
-        self.name=name
+    def __init__(self, name):
+        self.name = name
+
     def info(self):
         print(self.name)
 
+
 class Son(Person):
     # 子类有自己的特性的时候需要有构成方法，如果没有自己特性的时候可以不需要有构造方法
-    def __init__(self,name,age,addr):
-        Person.__init__(self,name)
-        self.name=name
-        self.age=age
-        self.addr=addr
+    def __init__(self, name, age, addr):
+        Person.__init__(self, name)
+        self.name = name
+        self.age = age
+        self.addr = addr
+
     def info(self):
         print(f"名字:{self.name},年龄：{self.age},地址：{self.addr}")
 
 
-s=Son("测试",'12','深圳')
+s = Son("测试", '12', '深圳')
 s.info()
+
+
+# 多个类的继承：从左到右的原则
+
+class Person():
+    def eat(self):
+        print("人要吃饭")
+
+
+class Father(Person):
+    def eat(self):
+        print("喜欢吃菜")
+
+
+class Mother(Person):
+    print("喜欢吃水果")
+
+
+class Son(Father, Mother):
+    pass
+
+
+son = Son()
+son.eat()
+
+
+class A:
+    def show(self):
+        print("A")
+
+
+class B(A):
+    pass
+
+
+class C(A):
+    def show(self):
+        print("C")
+
+
+class D(B, C):
+    pass
+
+
+d = D()
+d.show()
+
+"""__doc__:打印类的注释"""
+
+
+class Person():
+    """对人的定义"""
+
+    def info(self, username, password):
+        """
+        获取用户的信息
+        :param username:用户名
+        :param password:密码
+        :return:
+        """
+        pass
+
+
+print(Person.__doc__)
+
+"""__call__:对象创建时直接返回__call__的内容，使用该方法可以模拟静态方法"""
+
+
+class P1():
+    def __new__(cls, *args, **kwargs):
+        print("call方法")
+
+
+per = P1()
+
+"""
+__str__:对象代表的含义，返回一个字符串，通过他可以把对象和字符串关联起来，方便某些程序的实现，该字符串表示某个实现
+了__str__后，可以直接使用print语句输出对象，也可以通过函数str来触发__str__的执行
+
+1、对象的意思
+2、返回一个字符串，字符串和对象关联起来，该字符串表示某个类
+"""
+
+
+class Son():
+    """我是一个类"""
+
+    def __str__(self):
+        return self.__doc__
+
+
+s = Son()
+print(s.__str__())
+
+
+class Factory():
+    def createFruit(self, fruit):
+        if fruit == 'pear':
+            return Pear()
+        elif fruit == "bananan":
+            return Bananan()
+
+
+class Fruit():
+    def __str__(self):
+        return "fruit"
+
+
+class Pear(Fruit):
+    def __str__(self):
+        return "pear"
+
+
+class Bananan(Fruit):
+    def __str__(self):
+        return "bananan"
+
+
+if __name__ == '__main__':
+    factory = Factory()
+    print(factory.createFruit("pear"))
