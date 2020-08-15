@@ -14,5 +14,5 @@ data={
 header={"Content-Type":" application/json; charset=UTF-8"}
 url="https://pagead2.googlesyndication.com/getconfig/sodar"
 
-r=requests.get(url=url,params=data)
+r=requests.get(url=url,json=data)
 print(r.text)
